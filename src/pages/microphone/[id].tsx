@@ -3,12 +3,29 @@ import React from "react";
 import { Microphone } from "../../../model/Micophone";
 import { openDb } from "../../openDb";
 import { useRouter } from "next/router";
+import {
+  Box,
+  Button,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import Card from "@material-ui/core/Card/Card";
 
 // export interface MecrophoneDetail extends Microphone {
 //   //
 // }
 
 export type MicrophoneDetailProps = Microphone;
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+});
 
 const MicrophoneDetail = ({
   id,
@@ -26,6 +43,7 @@ const MicrophoneDetail = ({
   if (router.isFallback) {
     return <h1>Loading.....</h1>;
   }
+  const classes = useStyles();
   return (
     <div>
       MicrophoneDetail
