@@ -24,15 +24,26 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
+  img: {
+    height: "100%",
+  },
 });
 
-export default function Home({ microphones }: HomeProps) {
+export default function Index({ microphones }: HomeProps) {
   const classes = useStyles();
   return (
     <Grid container spacing={3}>
       {microphones.map((microphone) => {
         return (
-          <Grid container item xs={12} sm={6} spacing={3}>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            spacing={3}
+            key={microphone.id}
+          >
             <Link href="/microphone/[id]" as={`/microphone/${microphone.id}`}>
               <a>
                 <Card className={classes.root}>
@@ -43,6 +54,7 @@ export default function Home({ microphones }: HomeProps) {
                       height="200"
                       image={microphone.imageUrl}
                       title={microphone.model + " " + microphone.brand}
+                      className={classes.img}
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
@@ -70,7 +82,16 @@ export default function Home({ microphones }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  console.log("ctx=", ctx);
+  const currentPage = ctx?.params?.currentPage as string;
+  const currentPageNumber = +(currentPage || 0);
+  const min = currentPageNumber * 5;
+  const max = (currentPageNumber + 1) * 5;
   const db = await openDb();
-  const microphones = await db.all(`select * from microphone`);
+  const microphones = await db.all(
+    `select * from microphone where id > ? and id <= ?`,
+    min,
+    max
+  );
   return { props: { microphones } };
 };

@@ -12,9 +12,10 @@ import {
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+
+import theme from "../theme";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }) {
         <title>Microphones Shop</title>
         <meta
           name="viewport"
-          content="minimum-scae=1, initial-scale=1, width=device-width"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
       <AppBar position="fixed">
@@ -60,7 +61,7 @@ function MyApp({ Component, pageProps }) {
           {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
-      <ThemeProvider>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box margin={8}>
           <Component {...pageProps} />
