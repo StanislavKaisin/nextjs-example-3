@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPageContext } from "next";
+import { GetServerSideProps, GetStaticProps, NextPageContext } from "next";
 import { Microphone } from "../../model/Micophone";
 import { openDb } from "../openDb";
 // import Head from 'next/head'
@@ -81,17 +81,28 @@ export default function Index({ microphones }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  console.log("ctx=", ctx);
-  const currentPage = ctx?.params?.currentPage as string;
-  const currentPageNumber = +(currentPage || 0);
-  const min = currentPageNumber * 5;
-  const max = (currentPageNumber + 1) * 5;
+// export const getStaticProps: GetStaticProps = async (ctx) => {
+//   console.log("ctx=", ctx);
+//   const currentPage = ctx?.params?.currentPage as string;
+//   const currentPageNumber = +(currentPage || 0);
+//   const min = currentPageNumber * 5;
+//   const max = (currentPageNumber + 1) * 5;
+//   const db = await openDb();
+//   const microphones = await db.all(
+//     `select * from microphone where id > ? and id <= ?`,
+//     min,
+//     max
+//   );
+//   return { props: { microphones } };
+// };
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const db = await openDb();
-  const microphones = await db.all(
-    `select * from microphone where id > ? and id <= ?`,
-    min,
-    max
+  const microphones: Microphone[] | undefined = await db.all(
+    "select * from microphone"
   );
+  await new Promise((acc) => {
+    setTimeout(acc, 3000);
+  });
   return { props: { microphones } };
 };

@@ -14,8 +14,28 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
 import theme from "../theme";
+import Link from "next/link";
+
+import { Router } from "next/dist/client/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
+NProgress.configure({ showSpinner: false });
+NProgress.configure({ trickleRate: 0.02, trickleSpeed: 800 });
+
+Router.events.on("routeChangeStart", () => {
+  console.log("on routeChangeStart");
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => {
+  console.log("on routeChangeComplete");
+  NProgress.done();
+});
+Router.events.on("routeChangeError", () => {
+  console.log("on routeChangeError");
+  NProgress.done();
+});
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +78,21 @@ function MyApp({ Component, pageProps }) {
           >
             Microphones Shop
           </Typography>
+          <Typography
+            variant="h6"
+            // className={classes.title}
+          >
+            <pre> | </pre>
+          </Typography>
+          <Typography
+            variant="h6"
+            // className={classes.title}
+          >
+            <Link href="/people">
+              <a>People page</a>
+            </Link>
+          </Typography>
+
           {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
