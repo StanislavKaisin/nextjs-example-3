@@ -5,12 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "cross-env MY_SECRET=1234 MY_STEP=start next start"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@types/jsonwebtoken": "^8.5.0",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "next": "9.5.3",
+    "next-connect": "^0.9.0",
     "nprogress": "^0.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

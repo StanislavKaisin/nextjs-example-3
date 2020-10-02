@@ -29,55 +29,62 @@ const useStyles = makeStyles({
   },
 });
 
+console.log("MY_STEP=", process.env.MY_STEP);
+
 export default function Index({ microphones }: HomeProps) {
   const classes = useStyles();
   return (
-    <Grid container spacing={3}>
-      {microphones.map((microphone) => {
-        return (
-          <Grid
-            container
-            item
-            xs={12}
-            sm={6}
-            md={3}
-            spacing={3}
-            key={microphone.id}
-          >
-            <Link href="/microphone/[id]" as={`/microphone/${microphone.id}`}>
-              <a>
-                <Card className={classes.root}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      alt={microphone.model + " " + microphone.brand}
-                      height="200"
-                      image={microphone.imageUrl}
-                      title={microphone.model + " " + microphone.brand}
-                      className={classes.img}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {microphone.brand + " " + microphone.model}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        Lizards are a widespread group of squamate reptiles,
-                        with over 6,000 species, ranging across all continents
-                        except Antarctica
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </a>
-            </Link>
-          </Grid>
-        );
-      })}
-    </Grid>
+    <>
+      <Typography gutterBottom variant="h5" component="h2">
+        MY_STEP={process.env.MY_STEP}
+      </Typography>
+      <Grid container spacing={3}>
+        {microphones.map((microphone) => {
+          return (
+            <Grid
+              container
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              spacing={3}
+              key={microphone.id}
+            >
+              <Link href="/microphone/[id]" as={`/microphone/${microphone.id}`}>
+                <a>
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        alt={microphone.model + " " + microphone.brand}
+                        height="200"
+                        image={microphone.imageUrl}
+                        title={microphone.model + " " + microphone.brand}
+                        className={classes.img}
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {microphone.brand + " " + microphone.model}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Lizards are a widespread group of squamate reptiles,
+                          with over 6,000 species, ranging across all continents
+                          except Antarctica
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </a>
+              </Link>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </>
   );
 }
 
@@ -102,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     "select * from microphone"
   );
   await new Promise((acc) => {
-    setTimeout(acc, 3000);
+    setTimeout(acc, 300);
   });
   return { props: { microphones } };
 };

@@ -8,3 +8,9 @@ export async function openDb() {
     driver: sqlite3.Database,
   });
 }
+export async function openDbChamp() {
+  return open({
+    filename: "./f1.sqlite",
+    driver: sqlite3.Database,
+  });
+}
